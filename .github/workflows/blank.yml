@@ -17,10 +17,11 @@ jobs:
         run: zip -r repo.zip .
         
       - name: Copy repo to vm
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: mkdir /home/pavel/github
+          source: repo.zip
+          target: /home/${{ secrets.USERNAME }}/github
