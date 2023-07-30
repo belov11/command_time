@@ -8,6 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        
+      - name: repo archiving
+        run: zip -r repo.zip .
+        
+      - name: Copy repo to vm
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: whoami
